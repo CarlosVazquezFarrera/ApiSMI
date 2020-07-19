@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SMI.Infrastructure.Data
+namespace SMI.Core.Entites
 {
     public partial class MantenimientoProgramado
     {
