@@ -145,9 +145,7 @@ namespace SMI.Infrastructure.Data
                     .HasConstraintName("SeReaalizaEn");
             });
 
-            OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
