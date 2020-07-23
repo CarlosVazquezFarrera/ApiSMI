@@ -1,15 +1,72 @@
 ﻿namespace SMI.Infrastructure.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
+    using SMI.Core.DTOs;
     using SMI.Core.Entites;
     using SMI.Core.Interfaces;
+    using SMI.Infrastructure.Data;
+    using System;
+    using System.Data.Common;
     using System.Threading.Tasks;
 
     public class EmpleadoReposotory: IEmpleadoRepository
     {
-        public async Task<Empleado> Login()
+        private readonly SMIContext baseDeDatos;
+        public EmpleadoReposotory(SMIContext context)
         {
-            await Task.Delay(10);
-            return new Empleado { Id = 1, Apellidos = "Vazquez", Email = "Aja", Nombre = "Carlos", Password = "1234"};
+            baseDeDatos = context;
+        }
+
+        public async Task<Response> Login(EmpleadoDto empleado)
+        {
+            Response response = new Response();
+            try
+            {
+                baseDeDatos.Database.OpenConnection();
+                var comand = baseDeDatos.Database.GetDbConnection().CreateCommand();
+
+                #region Paramethers
+
+                DbParameter emailParameter = comand.CreateParameter();
+                emailParameter.ParameterName = "Email";
+                emailParameter.Value = empleado.Email;
+                comand.Parameters.Add(emailParameter);
+
+                DbParameter passWordParameter = comand.CreateParameter();
+                passWordParameter.ParameterName = "Password";
+                passWordParameter.Value = empleado.Password;
+                comand.Parameters.Add(passWordParameter);
+                #endregion
+
+                comand.CommandText = "[dbo].[AutenticarEmpleado]";
+                comand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                DbDataReader resultado = await comand.ExecuteReaderAsync();
+                if (resultado.HasRows)
+                {
+                    if (resultado.Read())
+                    {
+                        response.Exito = resultado.GetBoolean(0);
+                        response.Mensaje = resultado.GetString(1);
+                        if (response.Exito)
+                        {
+                            response.Data = new Empleado
+                            {
+                                Id = resultado.GetInt32(2),
+                                Nombre = resultado.GetString(3),
+                                Apellidos = resultado.GetString(4)
+                            };
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                response.Mensaje = e.ToString();
+            }
+            return response;
         }
     }
 }

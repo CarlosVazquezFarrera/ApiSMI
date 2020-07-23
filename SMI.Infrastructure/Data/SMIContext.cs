@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SMI.Core.Entites;
+using SMI.Infrastructure.Data.Configurations;
 
 namespace SMI.Infrastructure.Data
 {
@@ -23,126 +24,12 @@ namespace SMI.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Actividad>(entity =>
-            {
-                entity.Property(e => e.Actividad1)
-                    .IsRequired()
-                    .HasColumnName("Actividad")
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdMantenimientoNavigation)
-                    .WithMany(p => p.Actividad)
-                    .HasForeignKey(d => d.IdMantenimiento)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("PerteneceA");
-            });
-
-            modelBuilder.Entity<Edificio>(entity =>
-            {
-                entity.Property(e => e.Ancho)
-                    .HasColumnType("decimal(4, 2)")
-                    .HasDefaultValueSql("((0.0))");
-
-                entity.Property(e => e.FechaEdificacion).HasColumnType("date");
-
-                entity.Property(e => e.Largo)
-                    .HasColumnType("decimal(4, 2)")
-                    .HasDefaultValueSql("((0.0))");
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Empleado>(entity =>
-            {
-                entity.Property(e => e.Apellidos)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Sin Email')");
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Telefono)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .IsFixedLength()
-                    .HasDefaultValueSql("('Sin Numero')");
-            });
-
-            modelBuilder.Entity<Espacio>(entity =>
-            {
-                entity.Property(e => e.Ancho)
-                    .HasColumnType("decimal(4, 2)")
-                    .HasDefaultValueSql("((0.0))");
-
-                entity.Property(e => e.Largo)
-                    .HasColumnType("decimal(4, 2)")
-                    .HasDefaultValueSql("((0.0))");
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdEdificioNavigation)
-                    .WithMany(p => p.Espacio)
-                    .HasForeignKey(d => d.IdEdificio)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("SeEncuentraEn");
-            });
-
-            modelBuilder.Entity<Mantenimiento>(entity =>
-            {
-                entity.Property(e => e.Mantenimiento1)
-                    .IsRequired()
-                    .HasColumnName("Mantenimiento")
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<MantenimientoProgramado>(entity =>
-            {
-                entity.Property(e => e.FechaEstablecidad).HasColumnType("date");
-
-                entity.Property(e => e.FechaFinProgramada).HasColumnType("date");
-
-                entity.Property(e => e.FechaFinRealizacion).HasColumnType("date");
-
-                entity.Property(e => e.Observaciones)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Sin observaciones')");
-
-                entity.HasOne(d => d.IdActividadNavigation)
-                    .WithMany(p => p.MantenimientoProgramado)
-                    .HasForeignKey(d => d.IdActividad)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("SeVaARelizar");
-
-                entity.HasOne(d => d.IdEmpleadoNavigation)
-                    .WithMany(p => p.MantenimientoProgramado)
-                    .HasForeignKey(d => d.IdEmpleado)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("EsAsiganadaA");
-
-                entity.HasOne(d => d.IdEspacioNavigation)
-                    .WithMany(p => p.MantenimientoProgramado)
-                    .HasForeignKey(d => d.IdEspacio)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("SeReaalizaEn");
-            });
+            modelBuilder.ApplyConfiguration(new ActividadConfiguration());
+            modelBuilder.ApplyConfiguration(new EdificioConfiguration());
+            modelBuilder.ApplyConfiguration(new EmpleadoConfiguration());
+            modelBuilder.ApplyConfiguration(new MantenimientoConfiguration());
+            modelBuilder.ApplyConfiguration(new EspacioConfiguration());
+            modelBuilder.ApplyConfiguration(new MantenimientoProgramadoConfiguration());
 
         }
 
