@@ -17,7 +17,7 @@
             baseDeDatos = context;
         }
 
-        public async Task<Response> Login(EmpleadoDto empleado)
+        public async Task<Response> Login(Empleado empleado)
         {
             Response response = new Response();
             try
