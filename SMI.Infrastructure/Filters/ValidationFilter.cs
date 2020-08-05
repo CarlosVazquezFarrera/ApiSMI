@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SMI.Infrastructure.Filters
 {
-    class ValidationFilter : IAsyncActionFilter
+    public class ValidationFilter : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
