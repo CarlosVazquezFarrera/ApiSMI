@@ -21,7 +21,9 @@
                 var json = new { 
                     erros = new[] { validaton}
                 };
+
                 context.Result = new BadRequestObjectResult(json);
+
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.ExceptionHandled = true;
             }

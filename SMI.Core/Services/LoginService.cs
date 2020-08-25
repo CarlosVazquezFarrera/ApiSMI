@@ -1,7 +1,7 @@
 ﻿namespace SMI.Core.Services
 {
+    using SMI.Core.CustomEntities;
     using SMI.Core.Entites;
-    using SMI.Core.Exceptios;
     using SMI.Core.Interfaces;
     using System.Threading.Tasks;
 
@@ -19,12 +19,8 @@
         #endregion
 
         #region Methods
-        public async Task<Response> Login(Empleado empleado)
+        public async Task<Response<Empleado>> Login(Empleado empleado)
         {
-            if (string.IsNullOrEmpty(empleado.Email) || string.IsNullOrEmpty(empleado.Password))
-            {
-                throw new BussinessExecption("Debe llenar los datos completos");
-            }
             return await _empleadoRepository.Login(empleado);
         } 
         #endregion
