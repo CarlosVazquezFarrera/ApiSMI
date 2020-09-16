@@ -1,6 +1,7 @@
 ﻿namespace SMI.Core.Services
 {
     using SMI.Core.Custom_Entites;
+    using SMI.Core.CustomEntities;
     using SMI.Core.Entites;
     using SMI.Core.Exceptios;
     using SMI.Core.Interfaces;
@@ -20,7 +21,7 @@
         #endregion
 
         #region Methods
-        public async Task<Response> CambiarPasword(CambiarPassword credenciales)
+        public async Task<Response<string>> CambiarPasword(CambiarPassword credenciales)
         {
             if (credenciales.Password.Equals(credenciales.NewPassword))
             {

@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SMI.Core.Custom_Entites;
+    using SMI.Core.CustomEntities;
     using SMI.Core.DTOs;
     using SMI.Core.Entites;
     using SMI.Core.Interfaces;
@@ -18,9 +19,9 @@
             baseDeDatos = context;
         }
 
-        public async Task<Response> CambiarPasword(CambiarPassword credenciales)
+        public async Task<Response<string>> CambiarPasword(CambiarPassword credenciales)
         {
-            Response response = new Response();
+            Response<string> response = new Response<string>();
             try
             {
                 baseDeDatos.Database.OpenConnection();
@@ -67,9 +68,9 @@
             return response;
         }
 
-        public async Task<Response> Login(Empleado empleado)
+        public async Task<Response<Empleado>> Login(Empleado empleado)
         {
-            Response response = new Response();
+            Response<Empleado> response = new Response<Empleado>();
             try
             {
                 baseDeDatos.Database.OpenConnection();

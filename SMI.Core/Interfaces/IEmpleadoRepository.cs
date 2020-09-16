@@ -1,6 +1,7 @@
 ﻿namespace SMI.Core.Interfaces
 {
     using SMI.Core.Custom_Entites;
+    using SMI.Core.CustomEntities;
     using SMI.Core.Entites;
     using System.Threading.Tasks;
     public interface IEmpleadoRepository
@@ -10,7 +11,7 @@
         /// </summary>
         /// <param name="empleado"></param>
         /// <returns></returns>
-        Task<Response> Login(Empleado empleado);
+        Task<Response<Empleado>> Login(Empleado empleado);
 
         /// <summary>
         /// Cambia la contraseña del usuario
@@ -19,6 +20,6 @@
         /// <param name="Password"></param>
         /// <param name="NewPassowrd"></param>
         /// <returns></returns>
-        Task<Response> CambiarPasword(CambiarPassword credenciales);
+        Task<Response<string>> CambiarPasword(CambiarPassword credenciales);
     }
 }

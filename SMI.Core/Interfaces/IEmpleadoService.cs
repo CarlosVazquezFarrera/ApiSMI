@@ -1,4 +1,5 @@
 ﻿using SMI.Core.Custom_Entites;
+using SMI.Core.CustomEntities;
 using SMI.Core.Entites;
 using System.Threading.Tasks;
 
@@ -13,6 +14,6 @@ namespace SMI.Core.Interfaces
         /// <param name="Password"></param>
         /// <param name="NewPassowrd"></param>
         /// <returns></returns>
-        Task<Response> CambiarPasword(CambiarPassword credenciales);
+        Task<Response<string>> CambiarPasword(CambiarPassword credenciales);
     }
 }

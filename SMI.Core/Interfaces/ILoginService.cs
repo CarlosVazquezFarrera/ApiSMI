@@ -1,5 +1,6 @@
 ﻿namespace SMI.Core.Interfaces
 {
+    using SMI.Core.CustomEntities;
     using SMI.Core.Entites;
     using System.Threading.Tasks;
     public interface ILoginService
@@ -9,6 +10,6 @@
         /// </summary>
         /// <param name="empleado"></param>
         /// <returns></returns>
-        Task<Response> Login(Empleado empleado);
+        Task<Response<Empleado>> Login(Empleado empleado);
     }
 }
