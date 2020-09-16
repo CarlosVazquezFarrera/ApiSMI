@@ -4,6 +4,11 @@
     using System.Threading.Tasks;
     public interface ILoginService
     {
+        /// <summary>
+        /// Hace el logeo del usuario
+        /// </summary>
+        /// <param name="empleado"></param>
+        /// <returns></returns>
         Task<Response> Login(Empleado empleado);
     }
 }
