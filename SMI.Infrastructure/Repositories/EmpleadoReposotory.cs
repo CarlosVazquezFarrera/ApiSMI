@@ -1,9 +1,7 @@
 ﻿namespace SMI.Infrastructure.Repositories
 {
     using Microsoft.EntityFrameworkCore;
-    using SMI.Core.Custom_Entites;
     using SMI.Core.CustomEntities;
-    using SMI.Core.DTOs;
     using SMI.Core.Entites;
     using SMI.Core.Interfaces;
     using SMI.Infrastructure.Data;
@@ -19,7 +17,7 @@
             baseDeDatos = context;
         }
 
-        public async Task<Response<string>> CambiarPasword(CambiarPassword credenciales)
+        public async Task<Response<string>> CambiarPasword(Credenciales credenciales)
         {
             Response<string> response = new Response<string>();
             try

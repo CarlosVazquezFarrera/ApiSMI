@@ -1,6 +1,6 @@
-﻿namespace SMI.Core.Custom_Entites
+﻿namespace SMI.Core.CustomEntities
 {
-    public class CambiarPassword
+    public class Credenciales
     {
         public int Id { get; set; }
         public string Password { get; set; }
